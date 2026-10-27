@@ -107,12 +107,49 @@
       display: flex;
       flex-direction: column;
       box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-      border: 4px solid #DDD6FE;
+      border: 4px solid #C4B5FD;
       color: var(--text-main);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .unit-card.active-card:hover {
+      transform: translateY(-6px);
+      border-color: #8B5CF6;
+      box-shadow: 0 20px 45px rgba(139, 92, 246, 0.35);
+    }
+
+    .unit-card.disabled {
+      opacity: 0.72;
+      border-color: #CBD5E1;
+    }
+
+    .unit-badge-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .tag-live {
+      background: #DCFCE7;
+      color: #15803D;
+      font-size: 0.85rem;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 10px;
+    }
+
+    .tag-soon {
+      background: #F1F5F9;
+      color: #64748B;
+      font-size: 0.85rem;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 10px;
     }
 
     .unit-title {
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       font-weight: 900;
       color: #5B21B6;
       margin-bottom: 10px;
@@ -143,17 +180,36 @@
     }
     .game-entry:last-child { margin-bottom: 0; }
 
+    .btn-enter {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 13px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 900;
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+      transition: all 0.2s;
+    }
+    .btn-enter:hover {
+      box-shadow: 0 8px 22px rgba(236, 72, 153, 0.55);
+      transform: translateY(-2px);
+    }
+
     .btn-disabled {
       display: block;
       width: 100%;
       text-align: center;
       padding: 13px;
       border-radius: 16px;
-      background: #EDE9FE;
-      color: #7C3AED;
+      background: #E2E8F0;
+      color: #94A3B8;
       font-size: 1.05rem;
-      font-weight: 900;
-      cursor: default;
+      font-weight: 800;
+      cursor: not-allowed;
     }
 
     @media (max-width: 768px) {
@@ -174,53 +230,75 @@
     <header>
       <div class="badge">Chun 老師 ✦ 國小國語領域</div>
       <h1>📖 Chun 老師的國語互動遊戲館</h1>
-      <p class="subtitle">聲調大考驗、生字魔法筆順與造詞配對，讓小朋友快樂識字！</p>
+      <p class="subtitle">聲調大考驗、拼音合音果汁機與語詞火車接龍，讓小朋友快樂學注音與國字！</p>
     </header>
 
     <div class="units-grid">
       
-      <!-- 首冊注音 -->
-      <div class="unit-card">
-        <h2 class="unit-title">🔤 首冊：注音符號冒險記</h2>
-        <p class="unit-desc">聲母、韻母、結合韻輕鬆認，搭配四聲調魔法帽子小遊戲，鞏固小一注音基本功！</p>
-        <div class="games-list">
-          <div class="game-entry">⏳ 遊戲 1：聲調帽子戴戴看</div>
-          <div class="game-entry">⏳ 遊戲 2：注音符號連連看</div>
+      <!-- 首冊注音 (已上線) -->
+      <div class="unit-card active-card">
+        <div class="unit-badge-row">
+          <span style="font-weight:900; color:#7C3AED; font-size:0.9rem;">小一首冊 · 綜合闖關</span>
+          <span class="tag-live">✦ 四合一關卡上線</span>
         </div>
-        <span class="btn-disabled">✨ 正在用心製作中</span>
+
+        <h2 class="unit-title">🔤 首冊：注音符號奇幻島</h2>
+        <p class="unit-desc">結合形音辨析、五聲調視覺軌道、二三拼果汁機與語詞火車接龍的綜合互動樂園！</p>
+        <div class="games-list">
+          <div class="game-entry">🔍 1. 雙胞胎捉迷藏（ㄅ/ㄉ、ㄆ/ㄊ、ㄢ/ㄤ、平翹舌）</div>
+          <div class="game-entry">🎢 2. 聲調雲霄飛車（一至四聲＋輕聲動態軌道）</div>
+          <div class="game-entry">🧪 3. 拼音魔法果汁機（二拼、三拼合音實作）</div>
+          <div class="game-entry">🚂 4. 詞語小火車接龍（看圖選音生活應用）</div>
+        </div>
+        <a href="game_bopomofo_island.html" class="btn-enter">立即進入奇幻島遊玩 ➜</a>
       </div>
 
       <!-- 一上課文生字 -->
-      <div class="unit-card">
-        <h2 class="unit-title">✍️ 一上：生字部首魔法屋</h2>
-        <p class="unit-desc">從象形文字到筆順動畫，動手拼出常用國字，加深部首形音義記憶。</p>
-        <div class="games-list">
-          <div class="game-entry">⏳ 遊戲 1：部首拆字配對消消樂</div>
-          <div class="game-entry">⏳ 遊戲 2：小小筆順小達人</div>
+      <div class="unit-card disabled">
+        <div class="unit-badge-row">
+          <span style="font-weight:900; color:#64748B; font-size:0.9rem;">一上國語</span>
+          <span class="tag-soon">籌備中</span>
         </div>
-        <span class="btn-disabled">✨ 正在用心製作中</span>
+
+        <h2 class="unit-title" style="color:#64748B;">✍️ 一上：生字部首魔法屋</h2>
+        <p class="unit-desc">從象形文字到筆順動畫，動手拼出常用國字，加深部首形音義記憶。</p>
+        <div class="games-list" style="background:#F8FAFC; border-color:#CBD5E1;">
+          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 1：部首拆字配對消消樂</div>
+          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 2：小小筆順小達人</div>
+        </div>
+        <span class="btn-disabled">即將推出 · 敬請期待</span>
       </div>
 
       <!-- 看圖選詞 -->
-      <div class="unit-card">
-        <h2 class="unit-title">📚 閱讀：看圖選詞小神童</h2>
-        <p class="unit-desc">生活實物照片與語詞配對，培養生活語感與小一生看圖說話能力。</p>
-        <div class="games-list">
-          <div class="game-entry">⏳ 遊戲 1：詞語生活配對賽</div>
-          <div class="game-entry">⏳ 遊戲 2：童話朗讀聽力題</div>
+      <div class="unit-card disabled">
+        <div class="unit-badge-row">
+          <span style="font-weight:900; color:#64748B; font-size:0.9rem;">語文閱讀</span>
+          <span class="tag-soon">籌備中</span>
         </div>
-        <span class="btn-disabled">✨ 正在用心製作中</span>
+
+        <h2 class="unit-title" style="color:#64748B;">📚 閱讀：看圖選詞小神童</h2>
+        <p class="unit-desc">生活實物與語詞配對，培養生活語感與小一生看圖說話能力。</p>
+        <div class="games-list" style="background:#F8FAFC; border-color:#CBD5E1;">
+          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 1：詞語生活配對賽</div>
+          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 2：童話朗讀聽力題</div>
+        </div>
+        <span class="btn-disabled">即將推出 · 敬請期待</span>
       </div>
 
       <!-- 造句練習 -->
-      <div class="unit-card">
-        <h2 class="unit-title">🧩 句子：火車排隊造句趣</h2>
-        <p class="unit-desc">將詞語積木拖曳排成完整的句子，訓練語法結構與標點符號觀念。</p>
-        <div class="games-list">
-          <div class="game-entry">⏳ 遊戲 1：詞語小火車出發囉</div>
-          <div class="game-entry">⏳ 遊戲 2：找找誰多了一個字</div>
+      <div class="unit-card disabled">
+        <div class="unit-badge-row">
+          <span style="font-weight:900; color:#64748B; font-size:0.9rem;">句型練習</span>
+          <span class="tag-soon">籌備中</span>
         </div>
-        <span class="btn-disabled">✨ 正在用心製作中</span>
+
+        <h2 class="unit-title" style="color:#64748B;">🧩 句子：火車排隊造句趣</h2>
+        <p class="unit-desc">將詞語積木拖曳排成完整的句子，訓練語法結構與標點符號觀念。</p>
+        <div class="games-list" style="background:#F8FAFC; border-color:#CBD5E1;">
+          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 1：詞語小火車出發囉</div>
+          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 2：找找誰多了一個字</div>
+        </div>
+        <span class="btn-disabled">即將推出 · 敬請期待</span>
       </div>
 
     </div>
