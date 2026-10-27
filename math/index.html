@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>國小數學互動遊戲館 - 單元清單大廳</title>
+  <style>
+    :root {
+      --primary: #F97316;
+      --primary-dark: #C2410C;
+      --bg-gradient: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --text-main: #1E293B;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      font-family: "PingFang TC", "Microsoft JhengHei", "Zen Maru Gothic", sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #F8FAFC;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    /* 頂部路徑導航 */
+    .breadcrumb-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      padding: 8px 18px;
+      border-radius: 20px;
+      margin-top: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .breadcrumb-nav a {
+      color: #FBD38D;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .breadcrumb-nav a:hover {
+      color: #FFFFFF;
+      text-decoration: underline;
+    }
+    .nav-sep { color: rgba(255,255,255,0.4); }
+    .nav-current { color: white; }
+
+    header {
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      font-weight: 900;
+      font-size: 1.1rem;
+      padding: 6px 18px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #94A3B8;
+      font-weight: bold;
+    }
+
+    /* 年級切換 Tabs */
+    .grade-tabs {
+      display: flex;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 6px;
+      border-radius: 20px;
+    }
+
+    .tab-btn {
+      padding: 8px 20px;
+      border-radius: 14px;
+      border: none;
+      background: transparent;
+      color: #94A3B8;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+    }
+
+    /* 單元網格 */
+    .units-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      width: 100%;
+    }
+
+    .unit-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+      border: 4px solid #FDBA74;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      color: var(--text-main);
+    }
+
+    .unit-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 45px rgba(249, 115, 22, 0.3);
+      border-color: var(--primary);
+    }
+
+    .unit-card.disabled {
+      opacity: 0.7;
+      border-color: #CBD5E1;
+      filter: grayscale(0.2);
+    }
+    .unit-card.disabled:hover {
+      transform: none;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    }
+
+    .unit-badge-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .tag-live {
+      background: #DCFCE7;
+      color: #15803D;
+      font-size: 0.85rem;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 10px;
+    }
+
+    .tag-soon {
+      background: #F1F5F9;
+      color: #64748B;
+      font-size: 0.85rem;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 10px;
+    }
+
+    .unit-title {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: #9A3412;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .unit-desc {
+      font-size: 1rem;
+      color: #475569;
+      font-weight: 700;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+
+    .games-list {
+      background: #FFF7ED;
+      border: 2px dashed #FDBA74;
+      border-radius: 16px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+    }
+
+    .game-entry {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #7C2D12;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .game-entry:last-child { margin-bottom: 0; }
+
+    .btn-enter {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 13px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 900;
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+      transition: all 0.2s;
+    }
+    .btn-enter:hover {
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-disabled {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 13px;
+      border-radius: 16px;
+      background: #E2E8F0;
+      color: #94A3B8;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+      .units-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <nav class="breadcrumb-nav">
+      <a href="../index.html">🏠 回全科總首頁</a>
+      <span class="nav-sep">/</span>
+      <span class="nav-current">📐 數學遊戲館</span>
+    </nav>
+
+    <header>
+      <div class="badge">國小數學領域</div>
+      <h1>📐 數學互動遊戲館</h1>
+      <p class="subtitle">讓抽象的幾何與算術變身為好玩的大冒險！請選擇要挑戰的單元：</p>
+    </header>
+
+    <div class="grade-tabs">
+      <button class="tab-btn active">一年級上學期</button>
+      <button class="tab-btn" onclick="alert('一年級下學期單元準備中，敬請期待！')">一年級下學期 ⏳</button>
+      <button class="tab-btn" onclick="alert('二年級單元準備中，敬請期待！')">二年級 ⏳</button>
+    </div>
+
+    <div class="units-grid">
+      
+      <!-- 單元 5：方盒、圓罐、球 (已上線) -->
+      <div class="unit-card">
+        <div class="unit-badge-row">
+          <span style="font-weight:900; color:#EA580C; font-size:0.9rem;">康軒版第五單元 P66-P72</span>
+          <span class="tag-live">✦ 現有 2 款遊戲</span>
+        </div>
+
+        <h2 class="unit-title">🎁 第 5 單元：方盒、圓罐、球</h2>
+        <p class="unit-desc">動手觀察物體的平面與曲面，體驗幾何平衡堆疊、滑梯滾動競賽與形狀分類。</p>
+
+        <div class="games-list">
+          <div class="game-entry">🎮 遊戲 A：聖誕郵筒迷宮大冒險 (P66-67)</div>
+          <div class="game-entry">🏗️ 遊戲 B：形狀小工坊（堆疊、滾動、分類、摸摸盒）</div>
+        </div>
+
+        <a href="1上_L5_方盒圓罐球/index.html" class="btn-enter">進入單元選單 ➜</a>
+      </div>
+
+      <!-- 單元 6：10以內的加法 (即將推出) -->
+      <div class="unit-card disabled">
+        <div class="unit-badge-row">
+          <span style="font-weight:900; color:#64748B; font-size:0.9rem;">康軒版第六單元</span>
+          <span class="tag-soon">籌備中</span>
+        </div>
+
+        <h2 class="unit-title" style="color:#64748B;">➕ 第 6 單元：10 以內的加法</h2>
+        <p class="unit-desc">透過數字天平與貪吃怪獸遊戲，學會合成、併加與算式紀錄。</p>
+
+        <div class="games-list" style="background:#F8FAFC; border-color:#CBD5E1;">
+          <div class="game-entry" style="color:#64748B;">⏳ 企鵝跳跳冰塊算術賽</div>
+          <div class="game-entry" style="color:#64748B;">⏳ 10以內合成魔法小天平</div>
+        </div>
+
+        <span class="btn-disabled">即將推出 · 敬請期待</span>
+      </div>
+
+      <!-- 單元 7：認識時間 (即將推出) -->
+      <div class="unit-card disabled">
+        <div class="unit-badge-row">
+          <span style="font-weight:900; color:#64748B; font-size:0.9rem;">康軒版第七單元</span>
+          <span class="tag-soon">籌備中</span>
+        </div>
+
+        <h2 class="unit-title" style="color:#64748B;">⏰ 第 7 單元：幾點鐘（認識時間）</h2>
+        <p class="unit-desc">分針走走、時針指指！認讀整點與半點，成為生活守時小管家。</p>
+
+        <div class="games-list" style="background:#F8FAFC; border-color:#CBD5E1;">
+          <div class="game-entry" style="color:#64748B;">⏳ 貓頭鷹的大時鐘校對</div>
+          <div class="game-entry" style="color:#64748B;">⏳ 小朋友的一天生活日記</div>
+        </div>
+
+        <span class="btn-disabled">即將推出 · 敬請期待</span>
+      </div>
+
+      <!-- 單元 8：10以內的減法 (即將推出) -->
+      <div class="unit-card disabled">
+        <div class="unit-badge-row">
+          <span style="font-weight:900; color:#64748B; font-size:0.9rem;">康軒版第八單元</span>
+          <span class="tag-soon">籌備中</span>
+        </div>
+
+        <h2 class="unit-title" style="color:#64748B;">➖ 第 8 單元：10 以內的減法</h2>
+        <p class="unit-desc">拿走、剩下、比較多少！用趣味吃餅乾動畫理解減法意義。</p>
+
+        <div class="games-list" style="background:#F8FAFC; border-color:#CBD5E1;">
+          <div class="game-entry" style="color:#64748B;">⏳ 吹泡泡戳破大挑戰</div>
+          <div class="game-entry" style="color:#64748B;">⏳ 蘋果樹摘蘋果大賽</div>
+        </div>
+
+        <span class="btn-disabled">即將推出 · 敬請期待</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>國小國語互動遊戲館 - 單元清單大廳</title>
+  <style>
+    :root {
+      --primary: #8B5CF6;
+      --primary-dark: #6D28D9;
+      --bg-gradient: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --text-main: #1E293B;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      font-family: "PingFang TC", "Microsoft JhengHei", "Zen Maru Gothic", sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #F8FAFC;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .breadcrumb-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      padding: 8px 18px;
+      border-radius: 20px;
+      margin-top: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .breadcrumb-nav a {
+      color: #DDD6FE;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .breadcrumb-nav a:hover {
+      color: #FFFFFF;
+      text-decoration: underline;
+    }
+    .nav-sep { color: rgba(255,255,255,0.4); }
+    .nav-current { color: white; }
+
+    header { text-align: center; }
+
+    .badge {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      font-weight: 900;
+      font-size: 1.1rem;
+      padding: 6px 18px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #94A3B8;
+      font-weight: bold;
+    }
+
+    .units-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      width: 100%;
+    }
+
+    .unit-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+      border: 4px solid #DDD6FE;
+      color: var(--text-main);
+    }
+
+    .unit-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #5B21B6;
+      margin-bottom: 10px;
+    }
+
+    .unit-desc {
+      font-size: 1rem;
+      color: #475569;
+      font-weight: 700;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+
+    .games-list {
+      background: #F5F3FF;
+      border: 2px dashed #C4B5FD;
+      border-radius: 16px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+    }
+
+    .game-entry {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #5B21B6;
+      margin-bottom: 6px;
+    }
+    .game-entry:last-child { margin-bottom: 0; }
+
+    .btn-disabled {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 13px;
+      border-radius: 16px;
+      background: #EDE9FE;
+      color: #7C3AED;
+      font-size: 1.05rem;
+      font-weight: 900;
+      cursor: default;
+    }
+
+    @media (max-width: 768px) {
+      .units-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <nav class="breadcrumb-nav">
+      <a href="../index.html">🏠 回全科總首頁</a>
+      <span class="nav-sep">/</span>
+      <span class="nav-current">📖 國語遊戲館</span>
+    </nav>
+
+    <header>
+      <div class="badge">國小國語領域</div>
+      <h1>📖 國語互動遊戲館</h1>
+      <p class="subtitle">聲調大考驗、生字魔法筆順與造詞配對，讓小朋友快樂識字！</p>
+    </header>
+
+    <div class="units-grid">
+      
+      <!-- 首冊注音 -->
+      <div class="unit-card">
+        <h2 class="unit-title">🔤 首冊：注音符號冒險記</h2>
+        <p class="unit-desc">聲母、韻母、結合韻輕鬆認，搭配四聲調魔法帽子小遊戲，鞏固小一注音基本功！</p>
+        <div class="games-list">
+          <div class="game-entry">⏳ 遊戲 1：聲調帽子戴戴看</div>
+          <div class="game-entry">⏳ 遊戲 2：注音符號連連看</div>
+        </div>
+        <span class="btn-disabled">✨ 正在用心製作中</span>
+      </div>
+
+      <!-- 一上課文生字 -->
+      <div class="unit-card">
+        <h2 class="unit-title">✍️ 一上：生字部首魔法屋</h2>
+        <p class="unit-desc">從象形文字到筆順動畫，動手拼出常用國字，加深部首形音義記憶。</p>
+        <div class="games-list">
+          <div class="game-entry">⏳ 遊戲 1：部首拆字配對消消樂</div>
+          <div class="game-entry">⏳ 遊戲 2：小小筆順小達人</div>
+        </div>
+        <span class="btn-disabled">✨ 正在用心製作中</span>
+      </div>
+
+      <!-- 看圖選詞 -->
+      <div class="unit-card">
+        <h2 class="unit-title">📚 閱讀：看圖選詞小神童</h2>
+        <p class="unit-desc">生活實物照片與語詞配對，培養生活語感與小一生看圖說話能力。</p>
+        <div class="games-list">
+          <div class="game-entry">⏳ 遊戲 1：詞語生活配對賽</div>
+          <div class="game-entry">⏳ 遊戲 2：童話朗讀聽力題</div>
+        </div>
+        <span class="btn-disabled">✨ 正在用心製作中</span>
+      </div>
+
+      <!-- 造句練習 -->
+      <div class="unit-card">
+        <h2 class="unit-title">🧩 句子：火車排隊造句趣</h2>
+        <p class="unit-desc">將詞語積木拖曳排成完整的句子，訓練語法結構與標點符號觀念。</p>
+        <div class="games-list">
+          <div class="game-entry">⏳ 遊戲 1：詞語小火車出發囉</div>
+          <div class="game-entry">⏳ 遊戲 2：找找誰多了一個字</div>
+        </div>
+        <span class="btn-disabled">✨ 正在用心製作中</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

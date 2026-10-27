@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>國小跨領域互動教學遊戲大廳 ✦ 小學堂數位樂園</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+      --text-main: #1E293B;
+      --math-color: #F97316;
+      --math-dark: #C2410C;
+      --chinese-color: #8B5CF6;
+      --chinese-dark: #6D28D9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      font-family: "PingFang TC", "Microsoft JhengHei", "Zen Maru Gothic", sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #F8FAFC;
+      padding: 25px 20px 40px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1050px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    header {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .badge-hub {
+      display: inline-block;
+      background: linear-gradient(135deg, #EC4899 0%, #F43F5E 100%);
+      color: white;
+      font-weight: 900;
+      font-size: 1.05rem;
+      padding: 6px 20px;
+      border-radius: 24px;
+      box-shadow: 0 4px 12px rgba(244, 63, 94, 0.4);
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.15rem;
+      color: #94A3B8;
+      font-weight: 700;
+      max-width: 650px;
+      line-height: 1.6;
+    }
+
+    /* 主題遊戲館雙卡片 */
+    .hubs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      width: 100%;
+    }
+
+    .hub-card {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 28px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+      border: 4px solid transparent;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      color: var(--text-main);
+    }
+
+    .hub-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card-math {
+      border-color: #FDBA74;
+    }
+    .card-math:hover {
+      border-color: var(--math-color);
+      box-shadow: 0 22px 50px rgba(249, 115, 22, 0.35);
+    }
+
+    .card-chinese {
+      border-color: #DDD6FE;
+    }
+    .card-chinese:hover {
+      border-color: var(--chinese-color);
+      box-shadow: 0 22px 50px rgba(139, 92, 246, 0.35);
+    }
+
+    .hub-tag {
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 5px 16px;
+      border-radius: 14px;
+      margin-bottom: 16px;
+    }
+
+    .card-math .hub-tag {
+      background: #FFEDD5;
+      color: var(--math-dark);
+    }
+
+    .card-chinese .hub-tag {
+      background: #EDE9FE;
+      color: var(--chinese-dark);
+    }
+
+    .hub-icon-wrap {
+      width: 110px;
+      height: 110px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.12));
+    }
+
+    .hub-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .card-math .hub-title { color: var(--math-dark); }
+    .card-chinese .hub-title { color: var(--chinese-dark); }
+
+    .hub-desc {
+      font-size: 1.05rem;
+      color: #64748B;
+      font-weight: 700;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .units-preview-box {
+      width: 100%;
+      background: #F8FAFC;
+      border: 2px dashed #CBD5E1;
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .preview-header {
+      font-size: 0.88rem;
+      font-weight: 900;
+      color: #64748B;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .unit-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #334155;
+    }
+
+    .unit-status {
+      font-size: 0.8rem;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-weight: 800;
+    }
+
+    .status-active {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .status-upcoming {
+      background: #F1F5F9;
+      color: #64748B;
+    }
+
+    .btn-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-main {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 18px;
+      color: white;
+      text-decoration: none;
+      font-size: 1.15rem;
+      font-weight: 900;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      transition: all 0.2s;
+    }
+
+    .card-math .btn-main {
+      background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+    }
+    .card-math .btn-main:hover {
+      box-shadow: 0 10px 24px rgba(249, 115, 22, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .card-chinese .btn-main {
+      background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+    }
+    .card-chinese .btn-main:hover {
+      box-shadow: 0 10px 24px rgba(139, 92, 246, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-quick {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border-radius: 14px;
+      background: #F1F5F9;
+      color: #475569;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 800;
+      transition: all 0.2s;
+    }
+    .btn-quick:hover {
+      background: #E2E8F0;
+      color: #0F172A;
+    }
+
+    /* 底部特點列 */
+    .features-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #CBD5E1;
+    }
+
+    footer {
+      margin-top: 15px;
+      color: #64748B;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .hubs-grid {
+        grid-template-columns: 1fr;
+      }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <header>
+      <div class="badge-hub">🎒 國小跨領域數位教材館</div>
+      <h1>小學堂 ✦ 互動遊戲樂園</h1>
+      <p class="subtitle">專為國小課堂教學量身打造的跨學科互動遊戲大廳！免安裝、零依賴，點開即玩，支援電子白板與平板觸控教學。</p>
+    </header>
+
+    <!-- 主題學科遊戲館 -->
+    <div class="hubs-grid">
+      
+      <!-- 1. 數學遊戲館 -->
+      <div class="hub-card card-math">
+        <div class="hub-tag">🔢 空間幾何 · 運算推理 · 幾何分類</div>
+        
+        <div class="hub-icon-wrap">
+          <svg viewBox="0 0 100 100" width="100%" height="100%">
+            <!-- 3D 方盒 -->
+            <polygon points="20,40 50,22 80,40 50,58" fill="#FDBA74" stroke="#EA580C" stroke-width="2.5" />
+            <polygon points="20,40 50,58 50,88 20,70" fill="#F97316" stroke="#EA580C" stroke-width="2.5" />
+            <polygon points="50,58 80,40 80,70 50,88" fill="#C2410C" stroke="#EA580C" stroke-width="2.5" />
+            <!-- 圓球 -->
+            <circle cx="75" cy="30" r="16" fill="#38BDF8" stroke="#0284C7" stroke-width="2.5" />
+            <ellipse cx="70" cy="25" rx="5" ry="3" fill="white" opacity="0.75" transform="rotate(-30 70 25)"/>
+            <!-- 運算符號小浮水印 -->
+            <text x="35" y="44" font-size="12" font-weight="900" fill="white">＋</text>
+            <text x="60" y="48" font-size="12" font-weight="900" fill="white">＝</text>
+          </svg>
+        </div>
+
+        <h2 class="hub-title">數學遊戲館</h2>
+        <p class="hub-desc">透過動手堆積木、滾滾滑梯賽與迷宮送信，讓抽象的幾何特徵與數字運算在指尖活起來！</p>
+
+        <div class="units-preview-box">
+          <div class="preview-header">熱門推薦單元</div>
+          <div class="unit-pill">
+            <span>🎁 一上 L5 方盒、圓罐、球</span>
+            <span class="unit-status status-active">2款遊戲上線</span>
+          </div>
+          <div class="unit-pill">
+            <span>➕ 一上 L6 10以內的加法</span>
+            <span class="unit-status status-upcoming">籌備中</span>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <a href="math/index.html" class="btn-main">進入數學遊戲館 ➜</a>
+          <a href="math/1上_L5_方盒圓罐球/index.html" class="btn-quick">⚡ 直達【一上 L5 方盒圓罐球】</a>
+        </div>
+      </div>
+
+      <!-- 2. 國語遊戲館 -->
+      <div class="hub-card card-chinese">
+        <div class="hub-tag">📖 注音認讀 · 生字筆順 · 部首識字</div>
+
+        <div class="hub-icon-wrap">
+          <svg viewBox="0 0 100 100" width="100%" height="100%">
+            <!-- 書本底座 -->
+            <path d="M 15 70 Q 50 60 50 82 Q 50 60 85 70 L 85 30 Q 50 20 50 42 Q 50 20 15 30 Z" fill="#DDD6FE" stroke="#7C3AED" stroke-width="2.5" />
+            <path d="M 50 42 L 50 82" stroke="#7C3AED" stroke-width="2" />
+            <!-- 毛筆 / 魔杖 -->
+            <line x1="25" y1="20" x2="65" y2="60" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" />
+            <polygon points="63,58 75,70 68,75" fill="#B45309" />
+            <!-- 注音與生字符號 -->
+            <text x="30" y="52" font-size="16" font-weight="900" fill="#6D28D9">ㄅ</text>
+            <text x="65" y="52" font-size="16" font-weight="900" fill="#6D28D9">字</text>
+          </svg>
+        </div>
+
+        <h2 class="hub-title">國語遊戲館</h2>
+        <p class="hub-desc">注音拼音冒險、聲調帽子捉迷藏、生字筆順與部首配對，讓小朋友愛上語文探索！</p>
+
+        <div class="units-preview-box">
+          <div class="preview-header">即將推出單元</div>
+          <div class="unit-pill">
+            <span>🔤 首冊 注音符號尋寶</span>
+            <span class="unit-status status-upcoming">規劃中</span>
+          </div>
+          <div class="unit-pill">
+            <span>✍️ 一上 生字部首魔法屋</span>
+            <span class="unit-status status-upcoming">規劃中</span>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <a href="chinese/index.html" class="btn-main">探索國語遊戲館 ➜</a>
+          <span class="btn-quick" style="cursor:default; opacity:0.75;">✨ 敬請期待新遊戲更新</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 底部特色標籤列 -->
+    <div class="features-row">
+      <div class="feature-item"><span>📺</span> 觸控電子白板專用大按鈕</div>
+      <div class="feature-item"><span>📢</span> 內嵌台灣國語自然真人語音</div>
+      <div class="feature-item"><span>📱</span> iPad / 平板全螢幕相容</div>
+      <div class="feature-item"><span>🚀</span> 零伺服器 GitHub Pages 快速發布</div>
+    </div>
+
+    <footer>
+      <p>國小跨領域互動教學遊戲大廳 ✦ 康軒／南一／翰林教材配套延伸活動</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
