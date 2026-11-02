@@ -8,20 +8,26 @@
 
 ## 📂 專案目錄結構
 
-```text
+`	ext
 elementary-games/
 ├── 📄 index.html                      <-- 🌟【跨學科總首頁】：切換數學館、國語館
 │
 ├── 📁 math/                           <-- 📐 數學領域專區
 │   ├── 📄 index.html                  <-- 數學單元目錄大廳
-│   └── 📁 1上_L5_方盒圓罐球/           <-- 現有單元五遊戲
-│       ├── 📄 index.html              <-- L5 單元首頁
-│       ├── 🎮 game1_santa_maze.html   <-- 遊戲 A：聖誕郵筒迷宮大冒險 (P66-67)
-│       └── 🏗️ game2_shape_workshop.html <-- 遊戲 B：形狀小工坊 (P68-72)
+│   ├── 📁 1上_L5_方盒圓罐球/           <-- 單元五：方盒、圓罐、球
+│   │   ├── 📄 index.html              <-- L5 單元首頁
+│   │   ├── 🎮 game1_santa_maze.html   <-- 遊戲 A：聖誕郵筒迷宮大冒險 (P66-67)
+│   │   └── 🏗️ game2_shape_workshop.html <-- 遊戲 B：形狀小工坊 (P68-72)
+│   └── 📁 1上_L6_30以內的數/           <-- 單元六：30以內的數
+│       ├── 📄 index.html              <-- L6 單元首頁
+│       ├── 🍭 game1_sweet_village.html <-- 遊戲 A：甜蜜村點數大派對 (P86-94)
+│       └── 🎈 game2_number_adventure.html <-- 遊戲 B：歡樂排隊與比大小 (P96-103)
 │
 └── 📁 chinese/                        <-- 📖 國語領域專區
-    └── 📄 index.html                  <-- 國語單元目錄大廳 (籌備更新中)
-```
+    ├── 📄 index.html                  <-- 國語大廳（首冊 6 卡 ＋ 一上 4 卡，兩課一卡雙欄對稱）
+    ├── 🎮 game_bopomofo_island.html   <-- 首冊總複習：注音符號奇幻島
+    └── 🎮 game_bopomofo_l1_l2.html    <-- （依序製作新增中...）
+`
 
 ---
 

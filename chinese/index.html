@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Chun 老師的國語互動遊戲館 - 單元清單大廳</title>
+  <title>Chun 老師的國語互動遊戲館 - 首冊注音與一上課文大廳</title>
   <style>
     :root {
       --primary: #8B5CF6;
       --primary-dark: #6D28D9;
+      --secondary: #EC4899;
       --bg-gradient: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
-      --card-bg: rgba(255, 255, 255, 0.96);
+      --card-bg: rgba(255, 255, 255, 0.97);
       --text-main: #1E293B;
     }
 
@@ -34,13 +35,14 @@
 
     .container {
       width: 100%;
-      max-width: 1000px;
+      max-width: 1040px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 25px;
+      gap: 28px;
     }
 
+    /* 頂部路徑導航 */
     .breadcrumb-nav {
       display: inline-flex;
       align-items: center;
@@ -49,7 +51,7 @@
       backdrop-filter: blur(8px);
       padding: 8px 18px;
       border-radius: 20px;
-      margin-top: 10px;
+      margin-top: 8px;
       font-size: 0.95rem;
       font-weight: 700;
     }
@@ -65,34 +67,82 @@
     .nav-sep { color: rgba(255,255,255,0.4); }
     .nav-current { color: white; }
 
-    header { text-align: center; }
+    header {
+      text-align: center;
+      max-width: 820px;
+    }
 
     .badge {
       display: inline-block;
-      background: var(--primary);
+      background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
       color: white;
       font-weight: 900;
-      font-size: 1.1rem;
-      padding: 6px 18px;
+      font-size: 1.05rem;
+      padding: 6px 20px;
       border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4);
-      margin-bottom: 10px;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.45);
+      margin-bottom: 12px;
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: 2.25rem;
       font-weight: 900;
       letter-spacing: 1px;
-      text-shadow: 0 3px 6px rgba(0,0,0,0.3);
-      margin-bottom: 8px;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.35);
+      margin-bottom: 10px;
     }
 
     .subtitle {
-      font-size: 1.1rem;
-      color: #94A3B8;
-      font-weight: bold;
+      font-size: 1.08rem;
+      color: #CBD5E1;
+      font-weight: 700;
+      line-height: 1.6;
     }
 
+    /* 分冊區塊標題列 */
+    .section-block {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 6px solid #A78BFA;
+      padding: 14px 22px;
+      border-radius: 16px;
+      backdrop-filter: blur(6px);
+    }
+
+    .section-header.sec-1a {
+      border-left-color: #F472B6;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-meta {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #E2E8F0;
+      background: rgba(15, 23, 42, 0.45);
+      padding: 6px 14px;
+      border-radius: 12px;
+    }
+
+    /* 嚴格雙欄對稱排版：一排 2 個 */
     .units-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -102,7 +152,7 @@
 
     .unit-card {
       background: var(--card-bg);
-      border-radius: 24px;
+      border-radius: 26px;
       padding: 26px 24px;
       display: flex;
       flex-direction: column;
@@ -112,14 +162,22 @@
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
+    .unit-card.active-card {
+      border-color: #A78BFA;
+    }
+
     .unit-card.active-card:hover {
       transform: translateY(-6px);
       border-color: #8B5CF6;
       box-shadow: 0 20px 45px rgba(139, 92, 246, 0.35);
     }
 
+    .unit-card.card-1a {
+      border-color: #FBCFE8;
+    }
+
     .unit-card.disabled {
-      opacity: 0.72;
+      opacity: 0.88;
       border-color: #CBD5E1;
     }
 
@@ -128,6 +186,21 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
+      gap: 8px;
+    }
+
+    .lesson-range-tag {
+      font-weight: 900;
+      color: #6D28D9;
+      background: #EDE9FE;
+      padding: 4px 12px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+    }
+
+    .card-1a .lesson-range-tag {
+      color: #BE185D;
+      background: #FCE7F3;
     }
 
     .tag-live {
@@ -141,7 +214,7 @@
 
     .tag-soon {
       background: #F1F5F9;
-      color: #64748B;
+      color: #475569;
       font-size: 0.85rem;
       font-weight: 900;
       padding: 4px 12px;
@@ -151,45 +224,81 @@
     .unit-title {
       font-size: 1.45rem;
       font-weight: 900;
-      color: #5B21B6;
+      color: #4C1D95;
       margin-bottom: 10px;
     }
 
+    .card-1a .unit-title {
+      color: #831843;
+    }
+
+    .scope-box {
+      background: #F5F3FF;
+      border: 2px dashed #C4B5FD;
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #5B21B6;
+      line-height: 1.5;
+    }
+
+    .card-1a .scope-box {
+      background: #FDF2F8;
+      border-color: #F9A8D4;
+      color: #9D174D;
+    }
+
     .unit-desc {
-      font-size: 1rem;
+      font-size: 0.98rem;
       color: #475569;
       font-weight: 700;
-      line-height: 1.6;
-      margin-bottom: 18px;
+      line-height: 1.55;
+      margin-bottom: 16px;
       flex: 1;
     }
 
-    .games-list {
-      background: #F5F3FF;
-      border: 2px dashed #C4B5FD;
-      border-radius: 16px;
-      padding: 12px 16px;
+    /* 卡片內關卡目錄標籤：嚴格 2×2 對稱 Grid，禁止 3+1 孤兒行 */
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      width: 100%;
       margin-bottom: 20px;
     }
 
-    .game-entry {
-      font-size: 0.95rem;
+    .feature-pill {
+      background: #F1F5F9;
+      color: #334155;
+      font-size: 0.9rem;
       font-weight: 800;
-      color: #5B21B6;
-      margin-bottom: 6px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border: 1px solid #E2E8F0;
     }
-    .game-entry:last-child { margin-bottom: 0; }
+
+    .active-card .feature-pill {
+      background: #EDE9FE;
+      color: #4C1D95;
+      border-color: #DDD6FE;
+    }
 
     .btn-enter {
       display: block;
       width: 100%;
       text-align: center;
-      padding: 13px;
+      padding: 14px;
       border-radius: 16px;
       background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
       color: white;
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1.12rem;
       font-weight: 900;
       box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
       transition: all 0.2s;
@@ -206,14 +315,46 @@
       padding: 13px;
       border-radius: 16px;
       background: #E2E8F0;
-      color: #94A3B8;
+      color: #64748B;
       font-size: 1.05rem;
       font-weight: 800;
       cursor: not-allowed;
     }
 
+    /* 教學資訊卡片 */
+    .info-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 20px 25px;
+      color: #CBD5E1;
+      width: 100%;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .info-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: #F8FAFC;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    footer {
+      text-align: center;
+      color: #94A3B8;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      padding-bottom: 16px;
+    }
+
     @media (max-width: 768px) {
-      .units-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 1.75rem; }
+      .section-title { font-size: 1.2rem; }
     }
   </style>
 </head>
@@ -221,6 +362,7 @@
 
   <div class="container">
     
+    <!-- 頂部導航 -->
     <nav class="breadcrumb-nav">
       <a href="../index.html">🏠 回全科總首頁</a>
       <span class="nav-sep">/</span>
@@ -228,84 +370,263 @@
     </nav>
 
     <header>
-      <div class="badge">Chun 老師 ✦ 國小國語領域</div>
+      <div class="badge">Chun 老師 ✦ 國小一年級國語領域</div>
       <h1>📖 Chun 老師的國語互動遊戲館</h1>
-      <p class="subtitle">聲調大考驗、拼音合音果汁機與語詞火車接龍，讓小朋友快樂學注音與國字！</p>
+      <p class="subtitle">依循課本進度「每兩課一單元卡片」精心設計！涵蓋首冊注音符號與一上魔法文字課文，配備台灣微軟曉臻老師自然語音與每關 5 題隨機挑戰。</p>
     </header>
 
-    <div class="units-grid">
-      
-      <!-- 首冊注音 (已上線) -->
-      <div class="unit-card active-card">
-        <div class="unit-badge-row">
-          <span style="font-weight:900; color:#7C3AED; font-size:0.9rem;">小一首冊 · 綜合闖關</span>
-          <span class="tag-live">✦ 四合一關卡上線</span>
-        </div>
-
-        <h2 class="unit-title">🔤 首冊：注音符號奇幻島</h2>
-        <p class="unit-desc">結合形音辨析、五聲調視覺軌道、二三拼果汁機與語詞火車接龍的綜合互動樂園！</p>
-        <div class="games-list">
-          <div class="game-entry">🔍 1. 雙胞胎捉迷藏（ㄅ/ㄉ、ㄆ/ㄊ、ㄢ/ㄤ、平翹舌）</div>
-          <div class="game-entry">🎢 2. 聲調雲霄飛車（一至四聲＋輕聲動態軌道）</div>
-          <div class="game-entry">🧪 3. 拼音魔法果汁機（二拼、三拼合音實作）</div>
-          <div class="game-entry">🚂 4. 詞語小火車接龍（看圖選音生活應用）</div>
-        </div>
-        <a href="game_bopomofo_island.html" class="btn-enter">立即進入奇幻島遊玩 ➜</a>
+    <!-- ======================================================================
+         第一區：一上首冊 · 注音符號闖關館（共 6 張卡片 ＝ 3 排 × 2 張）
+         ====================================================================== -->
+    <section class="section-block">
+      <div class="section-header">
+        <div class="section-title">🔤 一上首冊：注音符號闖關館（第 1～9 課＋總複習）</div>
+        <div class="section-meta">兩課一單元 ✦ 共 6 張卡片（雙欄對稱）</div>
       </div>
 
-      <!-- 一上課文生字 -->
-      <div class="unit-card disabled">
-        <div class="unit-badge-row">
-          <span style="font-weight:900; color:#64748B; font-size:0.9rem;">一上國語</span>
-          <span class="tag-soon">籌備中</span>
-        </div>
+      <div class="units-grid">
+        
+        <!-- 首冊卡片 1：L1 ~ L2 (已上線) -->
+        <article class="unit-card active-card">
+          <div class="unit-badge-row">
+            <span class="lesson-range-tag">首冊 第 1～2 課</span>
+            <span class="tag-live">🟢 已上線 · 隨機 5 題</span>
+          </div>
+          <h2 class="unit-title">🎠 第一課〈踢踏踢〉・第二課〈木馬〉</h2>
+          <div class="scope-box">
+            📌 目標注音：ㄅ、ㄇ、ㄊ、ㄧ、ㄚ、ㄧㄚ ／ ㄉ、ㄨ、ㄝ、ㄠ、ㄧㄝ、ㄧㄠ、ㄨㄚ<br>
+            💬 核心語詞：媽媽、爸爸、踢踏、木馬、貓咪、爺爺、弟弟、搖
+          </div>
+          <p class="unit-desc">跟著爸爸媽媽踢踢踏踏，和弟弟、貓咪一起搖木馬！學習第一批聲母、單韻母與二拼合音。</p>
+          <div class="feature-list">
+            <span class="feature-pill">🔍 形音躲貓貓</span>
+            <span class="feature-pill">🧪 二拼魔法果汁</span>
+            <span class="feature-pill">🎠 聲調搖搖木馬</span>
+            <span class="feature-pill">🖼️ 課文看圖選音</span>
+          </div>
+          <a href="game_bopomofo_l1_l2.html" class="btn-enter">▶ 進入遊戲遊玩 ➜</a>
+        </article>
 
-        <h2 class="unit-title" style="color:#64748B;">✍️ 一上：生字部首魔法屋</h2>
-        <p class="unit-desc">從象形文字到筆順動畫，動手拼出常用國字，加深部首形音義記憶。</p>
-        <div class="games-list" style="background:#F8FAFC; border-color:#CBD5E1;">
-          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 1：部首拆字配對消消樂</div>
-          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 2：小小筆順小達人</div>
-        </div>
-        <span class="btn-disabled">即將推出 · 敬請期待</span>
+        <!-- 首冊卡片 2：L3 ~ L4 -->
+        <article class="unit-card disabled">
+          <div class="unit-badge-row">
+            <span class="lesson-range-tag">首冊 第 3～4 課</span>
+            <span class="tag-soon">⏳ 規劃完成 · 待製作</span>
+          </div>
+          <h2 class="unit-title">✈️ 第三課〈晚安〉・第四課〈紙飛機〉</h2>
+          <div class="scope-box">
+            📌 目標注音：ㄆ、ㄌ、ㄏ、ㄩ、ㄢ、ㄨㄢ、ㄩㄝ ／ ㄈ、ㄋ、ㄐ、ㄓ、ㄘ、ㄜ、ㄟ<br>
+            💬 核心語詞：月牙、彎彎、搖籃、兔寶寶、晚安、紙飛機、綠草地、豬妹妹、背包
+          </div>
+          <p class="unit-desc">彎彎月牙下對頑皮兔寶寶道晚安，白天一起射紙飛機飛到綠草地與豬妹妹的背包裡！</p>
+          <div class="feature-list">
+            <span class="feature-pill">👯 雙胞胎大考驗</span>
+            <span class="feature-pill">✈️ 紙飛機射氣球</span>
+            <span class="feature-pill">🍹 結合韻果汁機</span>
+            <span class="feature-pill">🚂 課文詞語火車</span>
+          </div>
+          <span class="btn-disabled">即將上線（首冊 L3～L4）</span>
+        </article>
+
+        <!-- 首冊卡片 3：L5 ~ L6 -->
+        <article class="unit-card disabled">
+          <div class="unit-badge-row">
+            <span class="lesson-range-tag">首冊 第 5～6 課</span>
+            <span class="tag-soon">⏳ 規劃完成 · 待製作</span>
+          </div>
+          <h2 class="unit-title">🦋 第五課〈好漂亮〉・第六課〈剪刀石頭布〉</h2>
+          <div class="scope-box">
+            📌 目標注音：ㄒ、ㄔ、ㄕ、ㄗ、ㄤ、ㄧㄤ、ㄨㄤ ／ ㄍ、ㄛ、ㄞ、ㄡ、ㄧㄡ、ㄧㄢ、ㄨㄛ<br>
+            💬 核心語詞：大象、鼻子長、河馬、老虎、蝴蝶、花衣裳、剪刀、石頭、小白兔、梅花鹿
+          </div>
+          <p class="unit-desc">欣賞大象、河馬、老虎與蝴蝶的花衣裳，再用雙手比出剪刀石頭布，變出小白兔與梅花鹿！</p>
+          <div class="feature-list">
+            <span class="feature-pill">👅 平翹舌與鼻音</span>
+            <span class="feature-pill">🦋 動物穿花衣裳</span>
+            <span class="feature-pill">✊ 猜拳拼音挑戰</span>
+            <span class="feature-pill">📖 課文句子填空</span>
+          </div>
+          <span class="btn-disabled">即將上線（首冊 L5～L6）</span>
+        </article>
+
+        <!-- 首冊卡片 4：L7 ~ L8 -->
+        <article class="unit-card disabled">
+          <div class="unit-badge-row">
+            <span class="lesson-range-tag">首冊 第 7～8 課</span>
+            <span class="tag-soon">⏳ 規劃完成 · 待製作</span>
+          </div>
+          <h2 class="unit-title">🥁 第七課〈不來梅樂隊〉・第八課〈小蝌蚪找媽媽〉</h2>
+          <div class="scope-box">
+            📌 目標注音：ㄑ、ㄖ、ㄥ、ㄧㄛ、ㄨㄟ、ㄨㄥ ／ ㄎ、ㄙ、ㄣ、ㄧㄥ、ㄨㄣ、ㄩㄢ<br>
+            💬 核心語詞：汪汪、喵喵、公雞、驢子、樂隊、小蝌蚪、大圓頭、長尾巴、白肚皮、呱呱呱
+          </div>
+          <p class="unit-desc">聽小狗、貓咪、公雞與驢子敲鑼打鼓組樂隊，再陪大圓頭、長尾巴的小蝌蚪找青蛙媽媽！</p>
+          <div class="feature-list">
+            <span class="feature-pill">🔎 前後鼻音偵探</span>
+            <span class="feature-pill">🥁 樂隊聽音辨聲</span>
+            <span class="feature-pill">🐸 蝌蚪尋親迷宮</span>
+            <span class="feature-pill">🚂 課文詞語火車</span>
+          </div>
+          <span class="btn-disabled">即將上線（首冊 L7～L8）</span>
+        </article>
+
+        <!-- 首冊卡片 5：L9 ＋ 結合韻 -->
+        <article class="unit-card disabled">
+          <div class="unit-badge-row">
+            <span class="lesson-range-tag">首冊 第 9 課＋結合韻</span>
+            <span class="tag-soon">⏳ 規劃完成 · 待製作</span>
+          </div>
+          <h2 class="unit-title">🦁 第九課〈動物狂歡節〉・結合韻大派對</h2>
+          <div class="scope-box">
+            📌 目標注音：ㄦ、ㄧㄞ、ㄧㄣ、ㄨㄞ、ㄩㄣ、ㄩㄥ ＋ 全冊 22 個結合韻精選<br>
+            💬 核心語詞：雄赳赳、氣昂昂、山崖、白雲、獅大王、烏龜慢慢爬、袋鼠咚咚跳、布穀、天鵝
+          </div>
+          <p class="unit-desc">獅大王帶領烏龜、袋鼠、布穀鳥與天鵝圍成圈圈來狂歡，全面攻克特殊韻母「ㄦ」與三拼結合韻！</p>
+          <div class="feature-list">
+            <span class="feature-pill">🦁 特殊韻母挑戰</span>
+            <span class="feature-pill">🦘 動物動作配對</span>
+            <span class="feature-pill">🧪 三拼結合果汁</span>
+            <span class="feature-pill">🎡 狂歡節問答賽</span>
+          </div>
+          <span class="btn-disabled">即將上線（首冊 L9＋結合韻）</span>
+        </article>
+
+        <!-- 首冊卡片 6：全冊總複習 (已上線) -->
+        <article class="unit-card active-card">
+          <div class="unit-badge-row">
+            <span class="lesson-range-tag">首冊 全冊總複習</span>
+            <span class="tag-live">✦ 四合一關卡上線</span>
+          </div>
+          <h2 class="unit-title">🏝️ 首冊總複習：注音符號奇幻島</h2>
+          <div class="scope-box">
+            📌 目標注音：全冊 37 個注音符號（21 聲母 ＋ 3 介音 ＋ 13 韻母）＋ 五聲調<br>
+            💬 綜合挑戰：形音雙胞胎辨析、五聲調雲霄飛車、二三拼果汁機與生活語詞火車
+          </div>
+          <p class="unit-desc">完成首冊九課後的終極綜合樂園！一次驗收形近注音辨識、聲調高低軌跡、合音拼讀與詞語應用。</p>
+          <div class="feature-list">
+            <span class="feature-pill">🔍 雙胞胎捉迷藏</span>
+            <span class="feature-pill">🎢 聲調雲霄飛車</span>
+            <span class="feature-pill">🧪 拼音魔法果汁</span>
+            <span class="feature-pill">🚂 詞語火車接龍</span>
+          </div>
+          <a href="game_bopomofo_island.html" class="btn-enter">▶ 立即進入奇幻島遊玩</a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         第二區：一上國語 · 魔法文字與課文館（共 4 張卡片 ＝ 2 排 × 2 張）
+         ====================================================================== -->
+    <section class="section-block">
+      <div class="section-header sec-1a">
+        <div class="section-title">✍️ 一上國語：魔法文字與課文館（魔法文字＋第 1～7 課）</div>
+        <div class="section-meta">兩課一單元 ✦ 共 4 張卡片（雙欄對稱）</div>
       </div>
 
-      <!-- 看圖選詞 -->
-      <div class="unit-card disabled">
-        <div class="unit-badge-row">
-          <span style="font-weight:900; color:#64748B; font-size:0.9rem;">語文閱讀</span>
-          <span class="tag-soon">籌備中</span>
-        </div>
+      <div class="units-grid">
 
-        <h2 class="unit-title" style="color:#64748B;">📚 閱讀：看圖選詞小神童</h2>
-        <p class="unit-desc">生活實物與語詞配對，培養生活語感與小一生看圖說話能力。</p>
-        <div class="games-list" style="background:#F8FAFC; border-color:#CBD5E1;">
-          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 1：詞語生活配對賽</div>
-          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 2：童話朗讀聽力題</div>
-        </div>
-        <span class="btn-disabled">即將推出 · 敬請期待</span>
+        <!-- 一上卡片 1：魔法文字 ＋ L1 小船 -->
+        <article class="unit-card card-1a disabled">
+          <div class="unit-badge-row">
+            <span class="lesson-range-tag">一上 魔法文字＋第 1 課</span>
+            <span class="tag-soon">⏳ 規劃完成 · 待製作</span>
+          </div>
+          <h2 class="unit-title">⛵ 〈魔法文字〉・第一課〈小船〉</h2>
+          <div class="scope-box">
+            📌 核心國字：日、月、山、木、水、人、手、門 ／ 小、船、走、一、二、左、右、魚<br>
+            💬 課文重點：象形文字演變、小船水上走、一左一右向前走、小魚加加油
+          </div>
+          <p class="unit-desc">從大自然圖畫認識八個神奇的象形魔法文字，再搭上小船認識左右方位，和小魚一起喊一二一加油！</p>
+          <div class="feature-list">
+            <span class="feature-pill">☀️ 甲骨象形變身</span>
+            <span class="feature-pill">⛵ 小船左右方向</span>
+            <span class="feature-pill">🐟 生字聽音捕魚</span>
+            <span class="feature-pill">🧩 課文句子重組</span>
+          </div>
+          <span class="btn-disabled">即將上線（魔法文字＋L1）</span>
+        </article>
+
+        <!-- 一上卡片 2：L2 印手印 ＋ L3 吹泡泡 -->
+        <article class="unit-card card-1a disabled">
+          <div class="unit-badge-row">
+            <span class="lesson-range-tag">一上 第 2～3 課</span>
+            <span class="tag-soon">⏳ 規劃完成 · 待製作</span>
+          </div>
+          <h2 class="unit-title">🫧 第二課〈印手印〉・第三課〈吹泡泡〉</h2>
+          <div class="scope-box">
+            📌 核心語詞：張開小手、印一印、招招手、小花一朵朵、一張張笑臉、吹泡泡、玩泡泡、在抱抱<br>
+            💬 語文重點：疊字量詞（一朵朵／一張張）、手部動作詞、形近同音字（泡 vs. 抱）
+          </div>
+          <p class="unit-desc">張開小手印出小魚、車子與一朵朵小花，再和大家一起吹出好多小泡泡，分辨「泡泡」與「抱抱」！</p>
+          <div class="feature-list">
+            <span class="feature-pill">🫧 形近字泡泡龍</span>
+            <span class="feature-pill">🌸 疊字量詞花園</span>
+            <span class="feature-pill">🖐️ 小手動作配對</span>
+            <span class="feature-pill">🕵️ 課文理解偵探</span>
+          </div>
+          <span class="btn-disabled">即將上線（一上 L2～L3）</span>
+        </article>
+
+        <!-- 一上卡片 3：L4 你好 ＋ L5 外星人 -->
+        <article class="unit-card card-1a disabled">
+          <div class="unit-badge-row">
+            <span class="lesson-range-tag">一上 第 4～5 課</span>
+            <span class="tag-soon">⏳ 規劃完成 · 待製作</span>
+          </div>
+          <h2 class="unit-title">🛸 第四課〈你好〉・第五課〈外星人〉</h2>
+          <div class="scope-box">
+            📌 核心語詞：爸爸、青青的山、大叫、你好、做朋友、外星人、星球、地球、青山、河流<br>
+            💬 語文重點：疊字形容詞（青青的）、引號與驚嘆號對話、疑問句型（哪個／什麼／有沒有）
+          </div>
+          <p class="unit-desc">到青青的山上對著山谷大叫「你好！」認識回音，再飛向太空探索地球與外星人，練習問號與驚嘆號！</p>
+          <div class="feature-list">
+            <span class="feature-pill">🛸 星際生字部首</span>
+            <span class="feature-pill">🎨 形容詞調色盤</span>
+            <span class="feature-pill">❓ 標點符號警察</span>
+            <span class="feature-pill">⛰️ 山谷回音問答</span>
+          </div>
+          <span class="btn-disabled">即將上線（一上 L4～L5）</span>
+        </article>
+
+        <!-- 一上卡片 4：L6 小金魚 ＋ L7 紅紅的春 -->
+        <article class="unit-card card-1a disabled">
+          <div class="unit-badge-row">
+            <span class="lesson-range-tag">一上 第 6～7 課</span>
+            <span class="tag-soon">⏳ 規劃完成 · 待製作</span>
+          </div>
+          <h2 class="unit-title">🧧 第六課〈小金魚〉・第七課〈紅紅的春〉</h2>
+          <div class="scope-box">
+            📌 核心語詞：小金魚、吐泡泡、悄悄話、搖尾巴、大紅花、紅紅的春、大門、春天、滿滿的幸福<br>
+            💬 語文重點：數量遞進（一句兩句三句話／一朵兩朵三朵花）、因果問答（為什麼……為了……）
+          </div>
+          <p class="unit-desc">看魚缸裡的小金魚吐泡泡說悄悄話、搖尾巴開出大紅花，再一起在大門貼上紅紅的春與滿滿的幸福！</p>
+          <div class="feature-list">
+            <span class="feature-pill">🐠 金魚吐泡選字</span>
+            <span class="feature-pill">🪜 一二三量詞梯</span>
+            <span class="feature-pill">🧧 為什麼與為了</span>
+            <span class="feature-pill">🏆 全冊閱讀滿貫</span>
+          </div>
+          <span class="btn-disabled">即將上線（一上 L6～L7）</span>
+        </article>
+
       </div>
+    </section>
 
-      <!-- 造句練習 -->
-      <div class="unit-card disabled">
-        <div class="unit-badge-row">
-          <span style="font-weight:900; color:#64748B; font-size:0.9rem;">句型練習</span>
-          <span class="tag-soon">籌備中</span>
-        </div>
-
-        <h2 class="unit-title" style="color:#64748B;">🧩 句子：火車排隊造句趣</h2>
-        <p class="unit-desc">將詞語積木拖曳排成完整的句子，訓練語法結構與標點符號觀念。</p>
-        <div class="games-list" style="background:#F8FAFC; border-color:#CBD5E1;">
-          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 1：詞語小火車出發囉</div>
-          <div class="game-entry" style="color:#64748B;">⏳ 遊戲 2：找找誰多了一個字</div>
-        </div>
-        <span class="btn-disabled">即將推出 · 敬請期待</span>
-      </div>
-
-    </div>
+    <!-- 教學特色說明 -->
+    <section class="info-card">
+      <div class="info-title">💡 Chun 老師國語互動教材設計特色：</div>
+      <p>
+        • <strong>緊扣課本「兩課一單元」</strong>：完全對齊康軒版《首冊（第1～9課）》與《一上（魔法文字＋第1～7課）》教學進度，隨堂即測即練。<br>
+        • <strong>台灣微軟曉臻老師標準國語發音</strong>：所有注音符號、聲調與破音字皆經過教育部審訂音校正並 100% 內嵌，無網路亦可離線發音。<br>
+        • <strong>每關 5 題隨機抽題 ＋ 零劇透設計</strong>：每個關卡皆從擴充題庫池隨機抽取 5 題，不預先洩漏注音或口訣答案，培養孩子真實拼讀與識字能力。
+      </p>
+    </section>
 
     <footer>
-      <p style="text-align:center; color:#64748B; font-size:0.9rem; margin-top:20px;">教學教材研發：Chun 老師 ✦ 歡迎國小課堂教學分享使用</p>
+      教學教材研發：Chun 老師 ✦ 康軒版 國小國語一年級上學期（首冊注音＋一上國字課文）互動教學館 ✦ 歡迎教育現場教師自由分享與使用
     </footer>
+
   </div>
 
 </body>
